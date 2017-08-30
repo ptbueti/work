@@ -1,0 +1,62 @@
+testing sequence of sets
+showing set 1
+[ { 10 20 } }
+product of single set
+O:enter product
+[ { 10 20 } }
+O:strings
+O:set.size sets[1]
+O:PRODUCT 1 RESULT
+{ [ 10 ] [ 20 ] ]
+single product
+{ [ 10 ] [ 20 ] ]
+showing  seq
+[ { 10 20 } { 'C' 'I' 'V' } }
+double product
+O:enter product
+[ { 10 20 } { 'C' 'I' 'V' } }
+O:strings
+O:set.size sets[2]
+O:PRODUCT TWO SETS INPUT
+O:get sets 1
+{ 10 20 }
+O:enter product
+[ { 10 20 } }
+O:strings
+O:set.size sets[1]
+O:PRODUCT 1 RESULT
+{ [ 10 ] [ 20 ] ]
+O:p1
+{ [ 10 ] [ 20 ] ]
+O:set 2
+{ 'C' 'I' 'V' }
+O:PRODUCT TWO SETS RESULT
+O:product.next.p1
+[ 10 ]
+O:product.next.set
+'C'
+O:p1.this
+[ 10 ]
+O:set.this
+'C'
+
+
+
+../setl4.stl(1493) : error 041 -- field function argument is wrong datatype
+
+
+
+
+
+in file              ../setl4.stl
+in line              1493
+in statement         963
+stmts executed       7826
+execution time msec  2
+stmt / microsec      3
+stmt / millisec      3913
+stmt / second        3913000
+in line              1
+memory used (bytes)  224424
+memory left (bytes)  37712
+

@@ -1,0 +1,128 @@
+
+
+*   Copyright 2017, David Shields
+*   Licensed under the MIT license.
+
+-include "../setl4.stl"
+
+    &stlimit = 25000
+
+  define('product(sets,strings)p1,p1.this,set,set.this'):(product.end)
+
+*   _Product_ returns the Cartesian product of a sequence of strings or sets.
+
+*   Argument _strings_ if not null then _sets_ is a sequence of strings.
+*
+*   Compute the Cartesian product as follows. If the input is the empty set,
+*   return the empty set. Compute the product of a single set or of two
+*   sets directly. Otherwise compute the product recursively.
+
+product
+
+    Out('enter product')
+    show(sets)
+    Out('strings',strings)
+
+    product = new('set')
+
+*   The product of an empty set is the empty set.
+
+    Out('set.size sets',set.size(sets))
+    eq(set.size(sets))                                 :s(return)
+    gt(set.size(sets),1)                               :s(product.several)
+
+*   Here to compute the product of a single set.
+
+    set = get(sets,1)
+    ident(strings)  visit(set,"add(product, push(new('seq'),this))")
+    differ(strings) visit(set,"add(product, this)")
+    Out('PRODUCT 1 RESULT')
+    show(product)
+                                                       :(return)
+
+product.several
+
+    gt(set.size(sets),2)                               :s(product.recurse)
+
+*   Here to compute product of two sets.
+
+    Out('PRODUCT TWO SETS INPUT')
+    Out('get sets 1')
+    show(get(sets,1))
+    p1 = product(push(new('seq'),get(sets,1)))
+    Out('p1')
+    show(p1)
+    Out('set 2')
+    set = get(sets,2)
+    show(set)
+
+    loop(p1,.p1.this)
+
+product.next.p1
+
+    Out('PRODUCT TWO SETS RESULT')
+    next(p1)                                            :f(return)
+    Out('product.next.p1')
+    show(p1.this)
+
+    loop(set,.set.this)
+
+product.next.set
+
+    next(set)                                           :f(product.next.p1)
+    Out('product.next.set')
+    show(set.this)
+
+    Out('p1.this')
+    show(p1.this)
+    Out('set.this')
+    show(set.this)
+    differ(strings)  add(product,join(p1.this,set.this))
+    ident(strings) add(product,join(p1.this,push(new('seq'),set.this)))
+                                                        :(product.next.set)
+product.recurse
+
+    product = product(slice(sets,1,set.size(sets) - 1),top(sets)) :(return)
+
+product.end
+
+    define('test(sets,strings)')                               :(test.end)
+
+test
+
+    out()
+    out('enter test')
+    Out('show strings')
+    out('showing sets')
+    show(sets)
+    :(return)
+    p = product(sets,strings)
+    out('computed')
+    show(p)
+    out()
+    out()
+                                                       :(return)
+test.end
+
+
+    out('testing sequence of sets')
+    s1 = new("set 10 20")
+    seq = new("seq")
+    push(seq,s1)
+    out('showing set 1')
+    show(seq)
+    out('product of single set')
+
+    p = product(seq)
+    out('single product')
+    show(p)
+
+    s2 = new("set I V C")
+    out('showing  seq')
+    push(seq,s2)
+    show(seq)
+    out('double product')
+    p = product(seq)
+    show(p)
+    out('done')
+end
